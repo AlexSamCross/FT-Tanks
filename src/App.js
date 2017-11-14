@@ -8,11 +8,21 @@ class App extends Component {
     super(props);
     //set statess
     this.state = {
-        playerCount: '',
+        playerCount: 0,
         gridSize: ''
     }
     //setuping your own custom functions
+    this.createPlayer = this.createPlayer.bind(this);
     this.createGrid = this.createGrid.bind(this);
+  }
+  createPlayer(element){
+    //add player
+    var playerCount = this.state.playerCount
+    if (playerCount < 4){
+      var playerCount = playerCount +1;
+      this.setState({ playerCount: playerCount });
+    }else alert('Sorry max number of players has now been reached!');
+    
   }
   //methods
   createGrid (element) {
@@ -53,21 +63,25 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">FT-Tanks</h1>
         </header>
+        <button
+          className="btn-player"
+          onClick={this.createPlayer}
+        >Add New Player</button>
         <p className="App-intro">
           To get started, select grid size.
         </p>
         <button
-          className="btn-player"
+          className="btn-grid"
           onClick={this.createGrid}
           data-param={3}
         >3x3 Grid</button>
         <button
-          className="btn-player"
+          className="btn-grid"
           onClick={this.createGrid}
           data-param={4}
         >4x4 Grid</button>
         <button
-          className="btn-player"
+          className="btn-grid"
           onClick={this.createGrid}
           data-param={5}
         >5x5 Grid</button>
