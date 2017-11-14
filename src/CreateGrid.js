@@ -32,7 +32,7 @@ class CreateGrid extends React.Component {
 
       for (var i=0; i < (param*param); i++) {
         var square = document.createElement('div');
-        square.id = 'square'+[1];
+        square.id = 'square'+[i];
         square.className = 'square';
         grid.appendChild(square);
       } 
