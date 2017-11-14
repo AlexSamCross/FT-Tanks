@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ScoreBoard from './ScoreBoard';
 
 class App extends Component {
 
@@ -67,6 +68,10 @@ class App extends Component {
           className="btn-player"
           onClick={this.createPlayer}
         >Add New Player</button>
+        <div>
+        <h1>Scores</h1>
+        <ScoreBoard/>
+      </div>
         <p className="App-intro">
           To get started, select grid size.
         </p>
