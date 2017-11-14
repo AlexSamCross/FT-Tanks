@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ScoreBoard from './ScoreBoard';
+import CreateGrid from './CreateGrid';
 
-class App extends Component {
+class App extends React.Component {
 
   constructor (props) {
     super(props);
@@ -13,9 +14,7 @@ class App extends Component {
         gridSize: ''
     }
     //setuping your own custom functions
-    this.createPlayer = this.createPlayer.bind(this);
-    this.createGrid = this.createGrid.bind(this);
-  }
+    this.createPlayer = this.createPlayer.bind(this);  }
   createPlayer(element){
     //add player
     var playerCount = this.state.playerCount
@@ -25,38 +24,6 @@ class App extends Component {
     }else alert('Sorry max number of players has now been reached!');
     
   }
-  //methods
-  createGrid (element) {
-    const { param } = element.target.dataset;
-    console.log(param);
-    //clear any grids if one excits
-    if (!this.state.gridSize){
-      //create grid using value passed in. 4x4
-      //gridwidth must be width of square (50px) x value
-      var grid = document.createElement('div');
-      grid.id = 'grid';
-      grid.className = 'grid';
-
-      var gridWidth = (50 * param),
-      gridHeight = (50 * param);
-
-      grid.style.width = gridWidth + "px";
-      grid.style.height = gridHeight + "px";
-      document.body.appendChild(grid);
-
-      for (var i=0; i < (param*param); i++) {
-        var square = document.createElement('div');
-        square.id = 'square'+[1];
-        square.className = 'square';
-        grid.appendChild(square);
-      } 
-      this.setState({ gridSize: param });
-    }
-    else{
-      
-    }
-  }
-
   render() {
     return (
       <div className="App">
@@ -69,27 +36,10 @@ class App extends Component {
           onClick={this.createPlayer}
         >Add New Player</button>
         <div>
-        <h1>Scores</h1>
-        <ScoreBoard/>
-      </div>
-        <p className="App-intro">
-          To get started, select grid size.
-        </p>
-        <button
-          className="btn-grid"
-          onClick={this.createGrid}
-          data-param={3}
-        >3x3 Grid</button>
-        <button
-          className="btn-grid"
-          onClick={this.createGrid}
-          data-param={4}
-        >4x4 Grid</button>
-        <button
-          className="btn-grid"
-          onClick={this.createGrid}
-          data-param={5}
-        >5x5 Grid</button>
+          <h1>Scores</h1>
+          <ScoreBoard/>
+          <CreateGrid/>
+        </div>
       </div>
     );
   }
