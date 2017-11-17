@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ScoreBoard from './ScoreBoard';
+//import ScoreBoard from './ScoreBoard';
 import CreateGrid from './CreateGrid';
-import CPButton from './CreatePlayerButton';
+import {CPButton} from './CreateButtons.js';
 
-class App extends React.Component {
+class App extends Component { 
 
   constructor (props) {
     super(props);
     //set statess
     this.state = {
         playerCount: 0,
+        player: [],
         gridSize: ''
     }
     //setuping your own custom functions
@@ -19,29 +20,27 @@ class App extends React.Component {
     this.constGrid = this.constGrid.bind(this);
   }
   createPlayer(element){
-    //add player
-    var playerCount = this.state.playerCount
-    if (playerCount < 4){
-      var playerCount = playerCount +1;
-      this.setState({ playerCount: playerCount });
-    }else alert('Sorry max number of players has now been reached!');
-    
+    var playerCount = this.state.playerCount +1;
+    this.setState({
+      player : this.state.player.concat({
+        playName : 'player'+ playerCount,
+        PlayerID : playerCount,
+        Score: 0
+      })
+    })
+    this.setState({playerCount:playerCount});
   }
   //methods
   constGrid (element) {
     const { param } = element.target.dataset;
-    //console.log(param);
-    //clear any grids if one excits
     if (!this.state.gridSize){
-      //create grid using value passed in. 4x4
-      //gridwidth must be width of square (50px) x value
+      //if no gridSize state excists then create grid.
       var grid = document.createElement('div');
       grid.id = 'grid';
       grid.className = 'grid';
 
       var gridWidth = (50 * param),
       gridHeight = (50 * param);
-
       grid.style.width = gridWidth + "px";
       grid.style.height = gridHeight + "px";
       document.body.appendChild(grid);
@@ -62,15 +61,14 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
+      <div id="App" className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">FT-Tanks</h1>
         </header>
+        <h1>Create your game.</h1>
         <CPButton handleClick={this.createPlayer}/>
-        <div>
-          <h1>ScoreBoard link removed.</h1>
-          <h1>Create your game.</h1>
+        <div id="grid">
           <CreateGrid handleClick={this.constGrid}/>
         </div>
       </div>

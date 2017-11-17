@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {CreateGridButtons} from './helpers.js';
+import React from 'react';
+import {CreateGridButtons} from './CreateButtons.js';
 
 const CreateGrid = function (props){
   var CGButtons = CreateGridButtons(props);
