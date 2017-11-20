@@ -10,7 +10,7 @@ const CreateGrid = function (props){
       </p>
       <div>
         {CGButtons}
-        </div>
+      </div>
       <div>
         <button
           className="btn-grid"

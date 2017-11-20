@@ -5,6 +5,13 @@ export function CPButton (props){
 		<button onClick={props.handleClick}>Add Plyer</button>
 	)
 }
+
+export function RPButton (props) {
+  return(
+		<button onClick={props.handleClick}>Remove Player Plyer</button>
+	)
+}
+
 export function CreateGridButtons (props) {
   const buttons = [];
   for( let x = 4; x < 12; x++) {
@@ -20,3 +27,4 @@ export function CreateGridButtons (props) {
   }
   return buttons;
 }
+

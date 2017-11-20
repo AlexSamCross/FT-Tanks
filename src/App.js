@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import Notifications, {notify} from 'react-notify-toast';
 import logo from './logo.svg';
 import './App.css';
-//import ScoreBoard from './ScoreBoard';
+import {CPButton, RPButton} from './CreateButtons.js';
+import {scoreBoard } from './ScoreBoard.js';
 import CreateGrid from './CreateGrid';
-import {CPButton} from './CreateButtons.js';
 
 class App extends Component { 
 
@@ -17,10 +18,14 @@ class App extends Component {
     }
     //setuping your own custom functions
     this.createPlayer = this.createPlayer.bind(this);
+    this.removePlayer = this.removePlayer.bind(this);
     this.constGrid = this.constGrid.bind(this);
   }
   createPlayer(element){
     var playerCount = this.state.playerCount +1;
+    notify.show('Player ' + playerCount +' Added');
+
+    //update states
     this.setState({
       player : this.state.player.concat({
         playName : 'player'+ playerCount,
@@ -29,11 +34,29 @@ class App extends Component {
       })
     })
     this.setState({playerCount:playerCount});
+
+    //update scoreboard
+    setTimeout(
+      function(){
+        scoreBoard(this.state.playerCount, this.state.player);
+      }.bind(this), 300)
+  }
+  removePlayer(element){
+    var playerCount = this.state.playerCount;
+    if (playerCount !== 0 ){
+      notify.show('Player ' + playerCount +' Removed');
+      playerCount = playerCount -1;
+      //remove laste array entry. 
+      this.setState({playerCount:playerCount});
+    }
+    else{
+      notify.show('Unable to remove another Player');
+    }
   }
   //methods
   constGrid (element) {
     const { param } = element.target.dataset;
-    if (!this.state.gridSize){
+    if (param !== ''){
       //if no gridSize state excists then create grid.
       var grid = document.createElement('div');
       grid.id = 'grid';
@@ -67,10 +90,11 @@ class App extends Component {
           <h1 className="App-title">FT-Tanks</h1>
         </header>
         <h1>Create your game.</h1>
+         <Notifications />
         <CPButton handleClick={this.createPlayer}/>
-        <div id="grid">
-          <CreateGrid handleClick={this.constGrid}/>
-        </div>
+        <RPButton handleClick={this.removePlayer}/>
+        <div id="grid"/>
+        <CreateGrid handleClick={this.constGrid}/>
       </div>
     );
   }
